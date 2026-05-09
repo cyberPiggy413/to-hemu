@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小猪猫猫互动</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff5f8;
+            gap: 30px;
+        }
+        .pig-wrap {
+            transition: all 0.3s ease;
+        }
+        .pig-img {
+            width: 220px;
+            height: auto;
+        }
+        /* 中间文字样式 */
+        .title-text {
+            font-size: 26px;
+            color: #ff4d94;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .btn-box {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin-top: 10px;
+        }
+        button {
+            padding: 14px 35px;
+            font-size: 18px;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .yes-btn {
+            background: #ff87ab;
+            color: #fff;
+        }
+        .no-btn {
+            background: #ddd;
+            color: #333;
+        }
+        .end-text {
+            font-size: 48px;
+            color: #ff4d94;
+            font-weight: bold;
+            margin-top: 30px;
+            animation: pulse 0.6s infinite alternate;
+        }
+        @keyframes pulse {
+            from {transform: scale(1);}
+            to {transform: scale(1.08);}
+        }
+    </style>
+</head>
+<body>
+    <div class="pig-wrap" id="pigWrap">
+        <img id="pigImg" class="pig-img" src="爱心猪.jpg" alt="爱心小猪">
+    </div>
+
+    <!-- 中间添加的文字 -->
+    <div class="title-text">可以跟我和好吗</div>
+
+    <div class="btn-box">
+        <button class="yes-btn" id="yesBtn">和好</button>
+        <button class="no-btn" id="noBtn">不要</button>
+    </div>
+
+    <script>
+        const pigImg = document.getElementById('pigImg');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        // 小猪图片
+        const pigLove = "爱心猪.jpg";
+        const pigQ = "期待猪.jpg";
+        const pigCry = "哭哭猪.jpg";
+        const pigCat = "贴贴.jpg";
+
+        let clickCount = 0;
+        let btnScale = 1;
+
+        noBtn.addEventListener('click', () => {
+            clickCount++;
+            btnScale += 0.25;
+            yesBtn.style.transform = `scale(${btnScale})`;
+
+            if(clickCount === 1){
+                pigImg.src = pigQ;
+                noBtn.innerText = "要不再想想？";
+            } else if(clickCount === 2){
+                pigImg.src = pigCry;
+                noBtn.innerText = "我会很伤心";
+            } else {
+                pigImg.src = pigCry;
+                noBtn.innerText = "不行";
+            }
+        });
+
+        yesBtn.addEventListener('click', () => {
+            document.body.innerHTML = `
+                <div class="pig-wrap">
+                    <img class="pig-img" style="width:300px" src="${pigCat}" alt="小猪贴贴猫猫">
+                </div>
+                <div class="end-text">好耶！超喜欢猫猫der！</div>
+            `;
+            document.body.style.background = "#ffe6f0";
+        });
+    </script>
+</body>
+</html>
